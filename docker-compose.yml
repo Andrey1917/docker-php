@@ -1,1 +1,16 @@
-version: '1'
+version: "3"
+
+services:
+ web-server_1:
+   image: httpd
+   ports:
+    - 8081:80
+
+ web-server_2:
+   image: nginx
+   ports:
+    - 8082:80
+   volumes:
+    - ./test.html:/usr/share/nginx/html/test.html
+   
+   
