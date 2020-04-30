@@ -1,16 +1,20 @@
 version: "3"
 
 services:
- web-server_1:
-   image: httpd
-   ports:
-    - 8081:80
+  mongo:
+    image: mongo:3.6.3
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
 
- web-server_2:
-   image: nginx
-   ports:
-    - 8082:80
-   volumes:
-    - ./test.html:/usr/share/nginx/html/test.html
-   
-   
+  redis:
+    image: redis:4.0.9
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+
+volumes: 
+  mongo_data:
+  redis_data:
