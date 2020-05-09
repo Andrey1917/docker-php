@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  nginx: 
+    image: project:nginx_ver1
+    ports:
+      - 80:80
+
+  httpd: 
+    image: project:httpd_ver1
+    ports:
+      - 88:80
+
+  php:
+    image: project:php_ver1
+    volumes:
+      - ./runtime:/var/www/app/runtime
+
+  mysql:
+    image: mysql:5.7.29
+    volumes:
+      - mysql_data:/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql_db
+
+  mongo:
+    image: mongo:3.6.3
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:4.0.9
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  postgres:
+    image: postgres:10.12
+    volumes: 
+      - postgres_data:/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres_db
+
+
+volumes: 
+  mongo_data:
+  redis_data:
+  postgres_data:
+  mysql_data:
